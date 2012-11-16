@@ -96,6 +96,28 @@ app.get('/api/products/:id', function (req, res){
 	})
 });
 
+/*
+Update a single product by ID
+*/
+app.put('/api/products/:id', function(req, res){
+	console.log("received POST request (update) for /api/products with id=" + req.params.id);
+	return ProductModel.findById(req.params.id, function(err, product){
+		product.title = req.body.title;
+		product.description = req.body.description;
+		product.style = req.body.style;
+		return product.save(function(err){
+			if (!err){
+				console.log("Updated product");
+			} else {
+				console.log(err);
+			}
+			return res.send(product);
+		});
+	});
+});
+
+
+
 
 //launch server
 app.listen(4242);
