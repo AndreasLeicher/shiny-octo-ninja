@@ -83,6 +83,8 @@ app.post('/api/products', function(req, res){
 
 /*
 Read a single product by ID
+URL: /api/products/#id# (replace #id# with product id)
+GET
 */
 app.get('/api/products/:id', function (req, res){
 	console.log("received GET request for /api/products with id=" + req.params.id);
@@ -98,6 +100,8 @@ app.get('/api/products/:id', function (req, res){
 
 /*
 Update a single product by ID
+URL: /api/products/#id#
+POST: title, description, style
 */
 app.put('/api/products/:id', function(req, res){
 	console.log("received POST request (update) for /api/products with id=" + req.params.id);
@@ -116,7 +120,23 @@ app.put('/api/products/:id', function(req, res){
 	});
 });
 
-
+/*
+Delete a single product by ID
+URL: /api/products/#id#
+DELETE
+*/
+app.delete('/api/products/:id', function(req, res){
+	console.log("received DELETE request for /api/products with id=" + req.params.id);
+	return ProductModel.findById(req.params.id, function(err, product){
+		return prodcut.remove(function (err) {
+			if (!err) {
+				console.log("Removed Product");
+			} else {
+				console.log(err);
+			}
+		});
+	});
+});
 
 
 //launch server
