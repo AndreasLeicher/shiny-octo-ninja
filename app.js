@@ -42,7 +42,7 @@ URL: /api/products
 GET request returns all products in JSON format
 */
 app.get('/api/products', function (req, res){
-	console.log("got a GET request for /api/products");
+	console.log("received a GET request for /api/products");
 	return ProductModel.find( function(err, products){
 		if (!err) {
 			return res.send(products);
@@ -59,7 +59,7 @@ URL: /api/products
 POST: title, description, style of product.
 */
 app.post('/api/products', function(req, res){
-	console.log("got a POST request for /api/products");
+	console.log("received a POST request for /api/products");
 	var product;
 	console.log("POST: ");
 	console.log(req.body);
@@ -78,6 +78,22 @@ app.post('/api/products', function(req, res){
 		}
 	});
 	return res.send(product);
+});
+
+
+/*
+Read a single product by ID
+*/
+app.get('/api/products/:id', function (req, res){
+	console.log("received GET request for /api/products with id=" + req.params.id);
+	return ProductModel.findById(req.params.id, function(err, product){
+		if (!err) {
+			return res.send(product);
+		} else {
+			return console.log(err);
+		}
+
+	})
 });
 
 
