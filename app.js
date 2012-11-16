@@ -30,12 +30,17 @@ var Product = new Schema({
 var ProductModel = mongoose.model('Product', Product);
 
 /*
-
+API endpoint
 */
 app.get('/api', function(req, res) {
 	res.send('Ecommerce API is running');
 });
 
+/*
+get all available products
+URL: /api/products
+GET request returns all products in JSON format
+*/
 app.get('/api/products', function (req, res){
 	console.log("got a GET request for /api/products");
 	return ProductModel.find( function(err, products){
